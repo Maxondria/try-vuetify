@@ -19,8 +19,24 @@
       </v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app class="indigo">
-      <p>Test</p>
+    <v-navigation-drawer dark v-model="drawer" app class="primary">
+      <v-list nav>
+        <v-list-item
+          v-for="(link, index) in links"
+          :key="index"
+          link
+          router
+          :to="link.route"
+        >
+          <v-list-item-icon>
+            <v-icon>{{ link.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
   </nav>
 </template>
@@ -29,10 +45,13 @@
 export default {
   name: 'Navbar.vue',
 
-  data() {
-    return {
-      drawer: false,
-    };
-  },
+  data: () => ({
+    drawer: false,
+    links: [
+      { icon: 'mdi-view-dashboard', text: 'Dashboard', route: '/' },
+      { icon: 'mdi-folder', text: 'My Projects', route: '/projects' },
+      { icon: 'mdi-account', text: 'Team', route: '/team' },
+    ],
+  }),
 };
 </script>
